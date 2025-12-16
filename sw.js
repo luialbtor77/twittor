@@ -15,7 +15,7 @@ const INMUTABLE_CACHE = 'inmutable-v1';
 // no olvidar la petición '/' que es necesaria
 // si falta un fichero no se instalará el APP_SHELL
 const APP_SHELL = [
-    '/',
+    // '/',  //descomentar para el desarrollo y comentar para el despliegue
     'index.html',
     'css/style.css',
     'img/favicon.ico',

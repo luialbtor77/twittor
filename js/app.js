@@ -1,7 +1,49 @@
 
+/**
+ * Solución para evitar error 404 al registrar el Service Worker
+ * 
+ * Error: "Failed to register a ServiceWorker for scope ('https://luialbtor77.github.io/') 
+ * with script ('https://luialbtor77.github.io/sw.js'): A bad HTTP response code (404)"
+ * 
+ * En GitHub Pages, la URL de la aplicación es:
+ * https://luialbtor77.github.io/twittor/
+ * 
+ * La raíz del proyecto es: /twittor/
+ * 
+ * En teoría el Service Worker debería estar en el directorio
+ * https://https://luialbtor77.github.io/twittor/
+ * 
+ * Si usamos swLocation = '/sw.js', el navegador busca en:
+ * https://luialbtor77.github.io/sw.js (raíz del dominio) ❌
+ * 
+ * Solución: usar swLocation = '/twittor/sw.js' para que busque en:
+ * https://luialbtor77.github.io/twittor/sw.js ✓
+ * y ahí no se encuentra el Service Worker
+ * 
+ * En desarrollo (localhost), el directorio raíz sí es /sw.js
+ */
+
+
+//Validación previa para adaptarse al lugar de despliegue
+//obtener el url que tengo en el navegador web
+// si es localhost estoy en desarrollo
+// si es otra coas estoy en producción
+let url = window.location.href; // obtiene todo el URL
+
+// path donde se encuentra el Service Worker
+let swLocation = '/twittor/sw.js';
+
+
+
 // Registrar el service worker en el app.js
 if ( navigator.serviceWorker ) {
-    navigator.serviceWorker.register('/sw.js');
+
+    if ( url.includes('localhost') ) {
+        swLocation = '/sw.js';
+    }
+
+    // navigator.serviceWorker.register('/sw.js');
+    navigator.serviceWorker.register(swLocation);
 }
 
 
