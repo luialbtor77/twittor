@@ -5,7 +5,7 @@ importScripts('js/sw-utils.js');
 
 /** Configuración Service Worker */
 
-const STATIC_CACHE = 'static-v2';
+const STATIC_CACHE = 'static-v3';
 const DYNAMIC_CACHE = 'dynamic-v1';
 const INMUTABLE_CACHE = 'inmutable-v1';
 
@@ -65,6 +65,7 @@ self.addEventListener('install', e => {
 
 /** PROCESO DE BORRADO DE LOS ANTIGUOS CACHES A CADA CAMBIO DE SW */
 // evento 'activate'
+// cache with network fallback: solo va a la red si el recurso no existe
 
 self.addEventListener('activate', e => {
     //Si hay una diferencia de versión tengo que borrar el cache estático
